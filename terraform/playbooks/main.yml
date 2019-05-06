@@ -17,6 +17,7 @@
         - git
         - zsh
         - mosh
+        - unzip
           #        - util-linux-user
 
     - name: Install Terraform
