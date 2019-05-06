@@ -4,6 +4,10 @@
     username: ec2-user
 
   tasks:
+    - name: Download foo.conf
+      yum:
+        name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        
     - name: Install packages
       yum:
         name: "{{ packages }}"
