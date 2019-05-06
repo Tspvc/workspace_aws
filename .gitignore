@@ -5,4 +5,4 @@ terraform/terraform.tfstate*
 
 # Ansible
 
-playbooks/*.retry
+terraform/playbooks/*.retry

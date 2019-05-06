@@ -17,6 +17,7 @@
         - git
         - zsh
         - mosh
+        - util-linux-user
 
     - name: ensure the ~/src-hub directory is present
       file: 
