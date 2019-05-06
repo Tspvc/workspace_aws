@@ -50,7 +50,7 @@ resource "aws_instance" "workstation" {
 
 resource "aws_route53_record" "workstation" {
   zone_id = "ZWAML9R9AUBAL"
-  name    = "workstation"
+  name    = "ws"
   type    = "A"
   records = ["${aws_instance.workstation.public_ip}"]
   ttl     = 300
