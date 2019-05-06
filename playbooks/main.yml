@@ -1,0 +1,55 @@
+- name: Deploy packages and config files to workstation
+  hosts: all
+  vars:
+    username: ec2-user
+
+  tasks:
+    - name: Install packages
+      yum:
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - tmux
+        - git
+        - zsh
+        - mosh
+
+    - name: ensure the ~/src-hub directory is present
+      file: 
+        path: /home/{{ username }}/src-hub
+        state: directory
+
+    - name: clone oh-my-zsh
+      git: 
+        repo: https://github.com/robbyrussell/oh-my-zsh.git
+        dest: /home/{{ username }}/src-hub/oh-my-zsh
+        update: no
+
+    - name: create symlink to oh-my-zsh
+      file: 
+        path: /home/{{ username }}/.oh-my-zsh
+        src: /home/{{ username }}/src-hub/oh-my-zsh
+        state: link
+
+    - name: copy zshrc to user home
+      template: 
+        src: templates/zshrc
+        dest: /home/{{ username }}/.zshrc
+        force: yes
+
+    - name: change user shell to zsh
+      become: yes
+      become_user: root
+      command: chsh -s /bin/zsh "{{ username }}"
+
+    - name: copy gitconfig to user home
+      template: 
+        src: templates/gitconfig
+        dest: /home/{{ username }}/.gitconfig
+        force: yes
+
+    - name: copy tmux.conf to user home
+      template: 
+        src: templates/tmux.conf
+        dest: /home/{{ username }}/.tmux.conf
+        force: yes

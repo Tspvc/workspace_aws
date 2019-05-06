@@ -1,0 +1,14 @@
+#/home/thiago/.local/bin:/home/thiago/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/thiago/bin:/home/thiago/.oh-my-zsh
+export ZSH=/home/thiago/.oh-my-zsh
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+bindkey -v
+# End of lines configured by zsh-newuser-install
+plugins=(
+  git
+)
+ZSH_THEME="agnoster"
+export DEFAULT_USER="$(whoami)"
+source $ZSH/oh-my-zsh.sh

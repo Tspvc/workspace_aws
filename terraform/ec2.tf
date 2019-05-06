@@ -10,6 +10,14 @@ resource "aws_security_group" "workstation" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 60000
+    to_port     = 60050
+    protocol    = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -33,5 +41,9 @@ resource "aws_instance" "workstation" {
 
   tags = {
     Name = "Workstation"
+  }
+
+  provisioner "local-exec" {
+        command = "sleep 120; ansible-playbook -u ec2-user -i '${aws_instance.workstation.public_ip},' ../playbooks/main.yml"
   }
 }
