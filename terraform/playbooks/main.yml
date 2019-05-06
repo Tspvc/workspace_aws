@@ -19,6 +19,12 @@
         - mosh
           #        - util-linux-user
 
+    - name: Install Terraform
+      unarchive:
+        src: https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
+        dest: /usr/bin
+        remote_src: yes
+
     - name: ensure the ~/src-hub directory is present
       file: 
         path: /home/{{ username }}/src-hub
