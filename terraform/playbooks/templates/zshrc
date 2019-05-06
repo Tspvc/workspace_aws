@@ -1,5 +1,5 @@
-#/home/centos/.local/bin:/home/centos/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/centos/bin:/home/centos/.oh-my-zsh
-export ZSH=/home/centos/.oh-my-zsh
+#/home/thiago.costa/.local/bin:/home/thiago.costa/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/thiago.costa/bin:/home/thiago.costa/.oh-my-zsh
+export ZSH=/home/thiago.costa/.oh-my-zsh
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000

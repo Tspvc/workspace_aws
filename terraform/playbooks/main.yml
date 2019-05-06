@@ -1,7 +1,7 @@
 - name: Deploy packages and config files to workstation
   hosts: all
   vars:
-    username: centos
+    username: thiago.costa
 
   tasks:
     - name: Install EPEL repo
@@ -26,6 +26,27 @@
         src: https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
         dest: /usr/bin
         remote_src: yes
+
+    - name: Create group thiago.costa
+      group:
+        name: thiago.costa
+
+    - name: Create user thiago.costa
+      user:
+        name: thiago.costa
+        groups: thiago.costa,wheel
+
+    - name: Create .ssh directory
+      file:
+        path: /home/{{ username }}/.ssh
+        state: directory
+
+    - name: Copy private key
+      copy: 
+        src: /home/centos/.ssh/authorized_keys
+        dest: /home/{{ username }}/.ssh/authorized_keys
+        remote_src: yes
+        mode: 0644
 
     - name: ensure the ~/src-hub directory is present
       file: 
