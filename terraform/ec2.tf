@@ -17,7 +17,6 @@ resource "aws_security_group" "workstation" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -33,17 +32,24 @@ resource "aws_instance" "workstation" {
   subnet_id                   = "subnet-d98c5fae"
   key_name                    = "Main"
   vpc_security_group_ids      = ["${aws_security_group.workstation.id}"]
-  
+
   root_block_device {
     volume_type = "gp2"
     volume_size = 10
-  } 
+  }
 
   tags = {
     Name = "Workstation"
   }
 
   provisioner "local-exec" {
-        command = "sleep 120; ansible-playbook -u ec2-user -i '${aws_instance.workstation.public_ip},' ../playbooks/main.yml"
+    command = "sleep 120; ansible-playbook -u ec2-user -i '${aws_instance.workstation.public_ip},' ../playbooks/main.yml"
   }
+}
+
+resource "aws_route53_record" "workstation" {
+  zone_id = "ZWAML9R9AUBAL"
+  name    = "workstation"
+  type    = "A"
+  records = ["${aws_instance.workstation.public_ip}"]
 }
