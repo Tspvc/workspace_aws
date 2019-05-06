@@ -1,10 +1,10 @@
 - name: Deploy packages and config files to workstation
   hosts: all
   vars:
-    username: ec2-user
+    username: centos
 
   tasks:
-    - name: Download foo.conf
+    - name: Install EPEL repo
       yum:
         name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
         
@@ -17,7 +17,7 @@
         - git
         - zsh
         - mosh
-        - util-linux-user
+          #        - util-linux-user
 
     - name: ensure the ~/src-hub directory is present
       file: 

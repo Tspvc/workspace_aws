@@ -26,7 +26,8 @@ resource "aws_security_group" "workstation" {
 }
 
 resource "aws_instance" "workstation" {
-  ami                         = "${data.aws_ami.amazon-linux-2.id}"
+#  ami                         = "${data.aws_ami.centos.id}"
+  ami                         = "ami-02eac2c0129f6376b"
   associate_public_ip_address = true
   instance_type               = "t3.micro"
   subnet_id                   = "subnet-d98c5fae"
@@ -43,7 +44,7 @@ resource "aws_instance" "workstation" {
   }
 
   provisioner "local-exec" {
-    command = "sleep 120; ansible-playbook -u ec2-user -i '${aws_instance.workstation.public_ip},' playbooks/main.yml"
+    command = "sleep 120; ansible-playbook -u centos -i '${aws_instance.workstation.public_ip},' playbooks/main.yml"
   }
 }
 
@@ -52,4 +53,5 @@ resource "aws_route53_record" "workstation" {
   name    = "workstation"
   type    = "A"
   records = ["${aws_instance.workstation.public_ip}"]
+  ttl     = 300
 }
