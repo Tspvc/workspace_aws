@@ -32,6 +32,7 @@ resource "aws_instance" "workstation" {
   subnet_id                   = "subnet-d98c5fae"
   associate_public_ip_address = true
   key_name                    = "Main"
+  iam_instance_profile        = "${aws_iam_instance_profile.workstation.id}"
   vpc_security_group_ids      = ["${aws_security_group.workstation.id}"]
 
   root_block_device {

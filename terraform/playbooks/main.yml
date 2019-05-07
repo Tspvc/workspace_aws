@@ -24,6 +24,8 @@
         - libevent-devel
         - ncurses-devel
         - glibc-static
+        - wget
+        - awscli
           #        - util-linux-user
 
     - name: Install Terraform
@@ -137,5 +139,12 @@
         force: yes
         mode: 0755
 
+    - name: Changes permission of rc.local
+      file: 
+        path: /etc/rc.d/rc.local
+        mode: 0755
+
     - name: Add Route53 script to startup
-      shell: update-rc.d update-route-53.sh defaults
+      lineinfile:
+        path: /etc/rc.d/rc.local
+        line: /etc/init.d/update-route-53.sh

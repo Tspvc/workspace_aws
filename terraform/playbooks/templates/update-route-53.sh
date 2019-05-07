@@ -21,7 +21,7 @@ ZONEID="ZWAML9R9AUBAL"
 echo Zone Id: $ZONEID
 
 # The CNAME you want to update e.g. hello.example.com
-RECORDSET="ws"
+RECORDSET="ws.tspvc.me"
 echo Record Set: $RECORDSET
 
 # More advanced options below
