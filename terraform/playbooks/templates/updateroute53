@@ -1,0 +1,11 @@
+[Unit]
+Description=Description for sample script goes here
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/etc/init.d/update-route-53.sh
+TimeoutStartSec=0
+
+[Install]
+WantedBy=default.target

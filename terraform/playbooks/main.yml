@@ -26,6 +26,7 @@
         - glibc-static
         - wget
         - awscli
+        - openfortivpn
           #        - util-linux-user
 
     - name: Install Terraform
@@ -139,12 +140,13 @@
         force: yes
         mode: 0755
 
-    - name: Changes permission of rc.local
-      file: 
-        path: /etc/rc.d/rc.local
-        mode: 0755
-
     - name: Add Route53 script to startup
-      lineinfile:
-        path: /etc/rc.d/rc.local
-        line: /etc/init.d/update-route-53.sh
+      template:
+        src: templates/updateroute53
+        dest: /etc/systemd/system/update-route-53.service
+
+    - name: Enable Route53 service
+      systemd:
+        daemon_reload: yes
+        enabled: yes
+        name: update-route-53.service
