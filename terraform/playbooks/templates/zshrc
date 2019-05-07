@@ -1,6 +1,7 @@
 #/home/thiago.costa/.local/bin:/home/thiago.costa/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/home/thiago.costa/bin:/home/thiago.costa/.oh-my-zsh
 export ZSH=/home/thiago.costa/.oh-my-zsh
 # Lines configured by zsh-newuser-install
+alias tmux="tmux -2"
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
@@ -11,4 +12,16 @@ plugins=(
 )
 ZSH_THEME="agnoster"
 export DEFAULT_USER="$(whoami)"
+
+if [[ "$TMUX" == "" ]] &&
+        [[ "$SSH_CONNECTION" != "" ]]; then
+    SESSION=hack
+    if tmux has-session -t $SESSION 2>/dev/null; then
+    tmux -2 attach-session -t $SESSION
+    else
+        tmux -2 new-session -s $SESSION
+    fi
+fi
+
 source $ZSH/oh-my-zsh.sh
+prompt_context () { }

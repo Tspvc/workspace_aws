@@ -1,5 +1,6 @@
 - name: Deploy packages and config files to workstation
   hosts: all
+  gather_facts: false
   vars:
     username: thiago.costa
 
@@ -13,12 +14,16 @@
         name: "{{ packages }}"
       vars:
         packages:
-        - tmux
         - git
         - zsh
         - mosh
         - unzip
         - vim
+        - automake
+        - gcc
+        - libevent-devel
+        - ncurses-devel
+        - glibc-static
           #        - util-linux-user
 
     - name: Install Terraform
@@ -26,6 +31,10 @@
         src: https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
         dest: /usr/bin
         remote_src: yes
+
+    - name: Install ncurses
+      yum:
+        name: http://rpmfind.net/linux/centos/7.6.1810/os/x86_64/Packages/ncurses-5.9-14.20130511.el7_4.x86_64.rpm
 
     - name: Create group thiago.costa
       group:
@@ -40,6 +49,12 @@
       file:
         path: /home/{{ username }}/.ssh
         state: directory
+
+    - name: Add to sudoers without password
+      lineinfile:
+        path: /etc/sudoers
+        insertafter: '^%wheel'
+        line: 'thiago.costa ALL=(ALL) NOPASSWD:ALL'
 
     - name: Copy private key
       copy: 
@@ -70,6 +85,8 @@
         src: templates/zshrc
         dest: /home/{{ username }}/.zshrc
         force: yes
+        owner: thiago.costa
+        group: thiago.costa
 
     - name: change user shell to zsh
       become: yes
@@ -81,16 +98,35 @@
         src: templates/gitconfig
         dest: /home/{{ username }}/.gitconfig
         force: yes
+        owner: thiago.costa
+        group: thiago.costa
+
+    - name: Clone Tmux
+      git:
+        repo: https://github.com/tmux/tmux.git
+        dest: /tmp/tmux
+
+    - name: Install Tmux
+      shell: cd /tmp/tmux && sh autogen.sh && ./configure && make && cp tmux /usr/bin/tmux
+
+    - name: Create Tmux Directory
+      file:
+        path: /home/{{ username}}/.tmux
+        state: directory
+        owner: thiago.costa
+        group: thiago.costa
 
     - name: Install Tmux Plugin Manager
       git:
         repo: https://github.com/tmux-plugins/tpm.git
         dest: /home/{{ username}}/.tmux/plugins/tpm
+      become_user: thiago.costa
 
     - name: copy tmux.conf to user home
       template: 
         src: templates/tmux.conf
         dest: /home/{{ username }}/.tmux.conf
         force: yes
-
+        owner: thiago.costa
+        group: thiago.costa
 

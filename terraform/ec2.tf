@@ -44,7 +44,7 @@ resource "aws_instance" "workstation" {
   }
 
   provisioner "local-exec" {
-    command = "sleep 120; ansible-playbook -u centos -i '${aws_instance.workstation.public_ip},' playbooks/main.yml"
+    command = "sleep 80; ansible-playbook -u centos -i '${aws_instance.workstation.public_ip},' playbooks/main.yml"
   }
 }
 
