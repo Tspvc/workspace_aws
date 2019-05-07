@@ -25,16 +25,12 @@ resource "aws_security_group" "workstation" {
   }
 }
 
-resource "aws_eip" "workstation" {
-  instance = "${aws_instance.workstation.id}"
-  vpc      = true
-}
-
 resource "aws_instance" "workstation" {
 #  ami                         = "${data.aws_ami.centos.id}"
   ami                         = "ami-02eac2c0129f6376b"
   instance_type               = "t3.micro"
   subnet_id                   = "subnet-d98c5fae"
+  associate_public_ip_address = true
   key_name                    = "Main"
   vpc_security_group_ids      = ["${aws_security_group.workstation.id}"]
 
@@ -56,6 +52,6 @@ resource "aws_route53_record" "workstation" {
   zone_id = "ZWAML9R9AUBAL"
   name    = "ws"
   type    = "A"
-  records = ["${aws_eip.workstation.public_ip}"]
+  records = ["${aws_instance.workstation.public_ip}"]
   ttl     = 300
 }

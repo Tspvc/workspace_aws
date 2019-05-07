@@ -130,3 +130,12 @@
         owner: thiago.costa
         group: thiago.costa
 
+    - name: Copy Route53 auto-update script
+      template:
+        src: templates/update-route-53.sh
+        dest: /etc/init.d/update-route-53.sh
+        force: yes
+        mode: 0755
+
+    - name: Add Route53 script to startup
+      shell: update-rc.d update-route-53.sh defaults
