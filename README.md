@@ -4,7 +4,7 @@ Terraform + Ansible project for personal AWS workstation administration.
 
 ## Getting started
 
-As a pre-requisite is necessary AWS CLI [installed and configured][1], terraform[2] and ansible[3] on your environment.
+As a pre-requisite is necessary [AWS CLI] installed and configured[1], [terraform][2] and [ansible][3] on your environment.
 
 Clone the project:
 
