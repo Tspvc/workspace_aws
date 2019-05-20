@@ -1,0 +1,70 @@
+" needed for regular-vim
+set nocompatible
+
+" configuration
+set autoindent                                            " indent a new line the same amount as the line just typed
+set autoread                                              " reload file if the file changes on the disk
+set backspace=indent,eol,start                            " make backspace work properly
+set clipboard=unnamedplus                                 " cross-platform clipboard
+set colorcolumn=80                                        " show line limit column
+set complete-=i                                           " do not include all files on completion
+set completeopt=menuone,longest,noselect                  " autocomplete options
+set cursorline                                            " highlight the current line for the cursor
+set encoding=utf-8                                        " default file encoding
+set expandtab                                             " expands tabs to spaces
+set fileformats=unix,dos,mac                              " use unix as the standard file type
+set formatoptions=tcqronj                                 " text formatting options
+set hidden                                                " hide buffers when abandoned instead of unload
+set hlsearch                                              " highlight search results
+set laststatus=2                                          " make sure status line appears
+set list                                                  " show whitespace chars
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:· " whitespace chars to show
+set modeline                                              " automatically setting options from modelines
+set mouse=a                                               " enable mouse
+set noerrorbells                                          " no bells
+set nospell                                               " disable spelling
+set noswapfile                                            " disable swapfile usage
+set notitle                                               " dont set title, we have everything we need from airline
+set novisualbell                                          " i said, no bells
+set nowrap                                                " dont wrap lines
+set number                                                " add line numbers
+set relativenumber                                        " show relative numbers
+set ruler                                                 " show ruler
+set shiftround                                            " round indent to multiple of 'shiftwidth'
+set shiftwidth=4                                          " width for autoindents
+set shortmess+=c                                          " hide annoying match messsaes
+set showmatch                                             " show matching brackets
+set signcolumn=yes                                        " keep signcolumn open all times
+set smartindent                                           " enable smart indentation
+set smarttab                                              " enable smart tabs
+set softtabstop=4                                         " see multiple spaces as tabstops so <BS> does the right thing
+set splitbelow splitright                                 " splits open bottom right
+set tabstop=4                                             " number of columns occupied by a tab character
+set timeoutlen=500                                        " smaller timeout for leader/esc
+set updatetime=100                                        " redraw the status bar often
+set wildmenu                                              " menu for command line
+set wildmode=longest:full,full                            " use tab to go through the menu
+scriptencoding utf-8                                      " set scripting encoding to utf8
+
+" plugins
+call plug#begin('~/.vim/plugged')
+Plug 'joshdick/onedark.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'sheerun/vim-polyglot'
+call plug#end()
+
+" fix regular-vim dumbass color handling
+if (has("termguicolors"))
+    set termguicolors
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
+" onedark.vim
+let g:onedark_hide_endofbuffer = 1
+colorscheme onedark
+
+" lightline
+set noshowmode
+let g:lightline = { 'colorscheme': 'one' }
+

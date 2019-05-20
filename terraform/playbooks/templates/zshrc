@@ -2,26 +2,28 @@
 export ZSH=/home/thiago.costa/.oh-my-zsh
 # Lines configured by zsh-newuser-install
 alias tmux="tmux -2"
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOQUIT=false
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 bindkey -v
 # End of lines configured by zsh-newuser-install
 plugins=(
-  git
+  git tmux 
 )
-ZSH_THEME="agnoster"
+ZSH_THEME="TheOne"
 export DEFAULT_USER="$(whoami)"
 
-if [[ "$TMUX" == "" ]] &&
-        [[ "$SSH_CONNECTION" != "" ]]; then
-    SESSION=hack
-    if tmux has-session -t $SESSION 2>/dev/null; then
-    tmux -2 attach-session -t $SESSION
-    else
-        tmux -2 new-session -s $SESSION
-    fi
-fi
+#if [[ "$TMUX" == "" ]] &&
+#        [[ "$SSH_CONNECTION" != "" ]]; then
+#    SESSION=hack
+#    if tmux has-session -t $SESSION 2>/dev/null; then
+#    tmux -2 attach-session -t $SESSION
+#    else
+#        tmux -2 new-session -s $SESSION
+#    fi
+#fi
 
 source $ZSH/oh-my-zsh.sh
-prompt_context () { }
+#prompt_context () { }
