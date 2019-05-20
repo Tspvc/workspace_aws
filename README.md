@@ -17,6 +17,10 @@ This project uses Terraform to build the required resources and execute the ansi
 
     $ aws configure
 
+If you have more than one AWS credential, export the correct one before running the commands below
+
+    $ export AWS_PROFILE=user
+
 ## Usage
 
     $ cd terraform
