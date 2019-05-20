@@ -54,5 +54,5 @@ resource "aws_route53_record" "workstation" {
   name    = "ws"
   type    = "A"
   records = ["${aws_instance.workstation.public_ip}"]
-  ttl     = 300
+  ttl     = 60
 }
