@@ -66,15 +66,15 @@
         remote_src: yes
         mode: 0644
 
-    - name: ensure the ~/src-hub directory is present
-      file: 
-        path: /home/{{ username }}/src-hub
-        state: directory
+#    - name: ensure the ~/src-hub directory is present
+#      file: 
+#        path: /home/{{ username }}/src-hub
+#        state: directory
 
     - name: clone oh-my-zsh
       git: 
         repo: https://github.com/robbyrussell/oh-my-zsh.git
-        dest: /home/{{ username }}/src-hub/oh-my-zsh
+        dest: /home/{{ username }}/.oh-my-zsh
         update: no
 
     - name: Create TheOne theme
@@ -85,11 +85,11 @@
         owner: thiago.costa
         group: thiago.costa
 
-    - name: create symlink to oh-my-zsh
-      file: 
-        path: /home/{{ username }}/.oh-my-zsh
-        src: /home/{{ username }}/src-hub/oh-my-zsh
-        state: link
+#    - name: create symlink to oh-my-zsh
+#      file: 
+#        path: /home/{{ username }}/.oh-my-zsh
+#      src: /home/{{ username }}/src-hub/oh-my-zsh
+#      state: link
 
     - name: copy zshrc to user home
       template: 
@@ -149,8 +149,19 @@
         owner: thiago.costa
         group: thiago.costa
 
+    - name: Create Vim Plug Directory
+      file:
+        path: /home/{{ username }}/.vim/autoload/
+        state: directory
+        owner: thiago.costa
+        group: thiago.costa
+
     - name: Install Vim Plug
-      shell: curl -fLo /home/{{ username }}/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      get_url: 
+        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        dest: /home/{{ username }}/.vim/autoload/
+        owner: thiago.costa
+        group: thiago.costa
 
     - name: Install Vim Plugins
       shell: vim +PlugInstall +qall
