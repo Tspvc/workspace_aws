@@ -77,13 +77,13 @@
         dest: /home/{{ username }}/src-hub/oh-my-zsh
         update: no
 
-    -name: Create TheOne theme
-     template:
-       src: templates/TheOne
-       dest: /home/{{ username }}/.oh-my-zsh/themes/TheOne.zsh-theme
-       force: yes
-       owner: thiago.costa
-       group: thiago.costa
+    - name: Create TheOne theme
+      template:
+        src: templates/TheOne
+        dest: /home/{{ username }}/.oh-my-zsh/themes/TheOne.zsh-theme
+        force: yes
+        owner: thiago.costa
+        group: thiago.costa
 
     - name: create symlink to oh-my-zsh
       file: 
